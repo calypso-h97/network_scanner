@@ -1,3 +1,6 @@
+# network_scanner
+A Python-based network scanner that identifies devices in a local network, scans their open ports, and detects the device vendor based on the MAC address
+=======
 # Network Scanner
 
 A Python-based network scanner that identifies devices in a local network, scans their open ports, and detects the device vendor based on the MAC address.
@@ -72,4 +75,3 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 ## Author
 [Your Name](https://github.com/calypso-h97)
-
