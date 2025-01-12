@@ -1,16 +1,15 @@
-# network_scanner
-A Python-based network scanner that identifies devices in a local network, scans their open ports, and detects the device vendor based on the MAC address
-=======
 # Network Scanner
 
-A Python-based network scanner that identifies devices in a local network, scans their open ports, and detects the device vendor based on the MAC address.
+A Python-based network scanner that identifies devices in a local network, scans their open ports, and detects the device vendor based on the MAC address. Optionally, it integrates with Shodan API to find vulnerabilities for public IP addresses.
 
 ## Features
-- Scans a specified network range for active devices.
-- Identifies open ports on each device.
-- Detects the vendor/manufacturer based on the MAC address.
-- Displays results in a readable format.
-- Saves results to a JSON file.
+- **Local mode**:
+  - Scans a specified local network range for active devices.
+  - Identifies open ports on each device.
+  - Detects the vendor/manufacturer based on the MAC address.
+- **Public mode** (Shodan integration):
+  - Scans public IPs using Shodan API.
+  - Identifies vulnerabilities (CVEs) and other data available from Shodan.
 
 ## Requirements
 - Python 3.8 or higher
@@ -20,6 +19,7 @@ A Python-based network scanner that identifies devices in a local network, scans
 - `scapy`: For sending ARP requests.
 - `socket`: For port scanning.
 - `mac-vendor-lookup`: For detecting the vendor based on the MAC address.
+- `shodan`: For Shodan API integration.
 
 ## Installation
 1. Clone the repository:
@@ -41,12 +41,15 @@ A Python-based network scanner that identifies devices in a local network, scans
    ```
 
 ## Usage
-1. Run the scanner:
+1. Run the scanner in **local mode**:
    ```bash
-   python scanner.py
+   python3 scanner.py --mode local --network 192.168.0.1/24
    ```
 
-2. The script will scan the network range (default: `192.168.0.1/24`), identify devices, scan ports (default: `[22, 80, 443, 8080]`), and display the results.
+2. Run the scanner in **public mode**:
+   ```bash
+   python3 scanner.py --mode public --shodan_api_key YOUR_SHODAN_API_KEY --network 8.8.8.8
+   ```
 
 ### Example Output
 ```text
@@ -58,16 +61,19 @@ Open Ports: [22, 80]
 
 IP: 192.168.0.105, MAC: 11:22:33:44:55:66, Vendor: Samsung
 Open Ports: [80, 443]
+Shodan Data: {'OS': 'Linux', 'Vulnerabilities': ['CVE-2023-12345'], 'Ports': [22, 80]}
 ```
 
 ## Configuration
-- **Network range**: Update the `network` parameter in the `NetworkScanner` class (default: `192.168.0.1/24`).
-- **Interface**: Specify the network interface if necessary (e.g., `en0` on macOS, `eth0` or `wlan0` on Linux).
-- **Ports**: Modify the list of ports in the `scan_ports` method.
+- **Modes**:
+  - `local`: Default mode for scanning local networks.
+  - `public`: Requires Shodan API key for scanning public IPs.
+- **Network range**: Update the `--network` argument to specify the network range or IP.
+- **Ports**: Modify the list of ports in the code if needed.
 
 ## Future Enhancements
 - Add asynchronous port scanning for improved performance.
-- Integrate Shodan API to identify vulnerabilities of devices.
+- Integrate additional APIs (e.g., Censys, ZoomEye).
 - Export results in CSV format.
 
 ## License
