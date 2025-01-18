@@ -80,4 +80,4 @@ Shodan Data: {'OS': 'Linux', 'Vulnerabilities': ['CVE-2023-12345'], 'Ports': [22
 This project is licensed under the MIT License. See the LICENSE file for details.
 
 ## Author
-[Your Name](https://github.com/calypso-h97)
+[calypso-h97](https://github.com/calypso-h97)
